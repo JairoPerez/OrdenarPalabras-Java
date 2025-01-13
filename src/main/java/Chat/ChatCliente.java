@@ -23,7 +23,6 @@ public class ChatCliente {
             mensajeUsuario = sc.nextLine();
             // Enviar mensaje al servidor
             salida.println(mensajeUsuario);
-            // Si el usuario escribe "exit", salir
             if (mensajeUsuario.equalsIgnoreCase("exit")) {
                 System.out.println("Cerrando conexión...");
                 break;
@@ -36,7 +35,6 @@ public class ChatCliente {
         // Cerrar recursos
         entrada.close();
         salida.close();
-        sc.close();
         socket.close();
     }
 }

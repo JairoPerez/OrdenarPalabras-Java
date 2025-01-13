@@ -6,13 +6,13 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-class ClientHandler extends Thread {
+class ManejadorClientes extends Thread {
     private Socket socketCliente;
     private BufferedReader entrada;
     private PrintWriter salida;
     private int clienteId;
 
-    public ClientHandler(Socket socket, int clienteId) {
+    public ManejadorClientes(Socket socket, int clienteId) {
         this.socketCliente = socket;
         this.clienteId = clienteId;
     }
@@ -28,20 +28,20 @@ class ClientHandler extends Thread {
                 System.out.println("Cliente "+ clienteId + ": " + mensaje);
 
                 if (mensaje.equalsIgnoreCase("exit")) {
-                    System.out.println("El cliente " + clienteId +" ha cerrado la conexión.");
+                    System.out.println("El cliente " + clienteId +" se ha desconectado.");
                     break;
                 }
                 salida.println("Servidor: " + mensaje);
             }
         } catch (IOException e) {
-            System.err.println("Error en la comunicación con el cliente " + clienteId + e.getMessage());
+            System.err.println("Error en la comunicación con el cliente " + clienteId);
         } finally {
             try {
                 entrada.close();
                 salida.close();
                 socketCliente.close();
             } catch (IOException e) {
-                System.err.println("Error al cerrar la conexión: " + e.getMessage());
+                System.err.println("Error al cerrar la conexión");
             }
         }
     }
